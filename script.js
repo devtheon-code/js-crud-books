@@ -1,5 +1,3 @@
-// app.js
-
 // Function to load books from local storage
 function loadBooks() {
   const storedBooks = localStorage.getItem('books');
