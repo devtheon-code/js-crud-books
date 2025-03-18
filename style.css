@@ -14,7 +14,7 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 600px;
 }
 
 input {
@@ -65,4 +65,9 @@ li button {
 
 li button:hover {
   background-color: #c82333;
+}
+
+.textDisplay {
+  display: flex;
+  justify-content: space-between;
 }

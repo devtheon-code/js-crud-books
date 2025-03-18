@@ -1,7 +1,18 @@
 // app.js
 
-// Array to hold the books
-let books = [];
+// Function to load books from local storage
+function loadBooks() {
+  const storedBooks = localStorage.getItem('books');
+  return storedBooks ? JSON.parse(storedBooks) : [];
+}
+
+// Function to save books to local storage
+function saveBooks() {
+  localStorage.setItem('books', JSON.stringify(books));
+}
+
+// Array to hold the books (initializing with books from local storage)
+let books = loadBooks();
 
 // Function to render the books list
 function renderBooks() {
@@ -11,7 +22,7 @@ function renderBooks() {
   books.forEach((book, index) => {
     const li = document.createElement('li');
     li.innerHTML = `
-            ${book.title} by ${book.author}
+            <div class="textDisplay">${book.title} by ${book.author}</div>
             <button onclick="deleteBook(${index})">Delete</button>
             <button onclick="editBook(${index})">Edit</button>
         `;
@@ -31,6 +42,9 @@ function addBook() {
     // Add book to the array
     books.push({ title, author });
 
+    // Save the updated books to local storage
+    saveBooks();
+
     // Clear the inputs
     titleInput.value = '';
     authorInput.value = '';
@@ -45,7 +59,12 @@ function addBook() {
 // Function to delete a book
 function deleteBook(index) {
   books.splice(index, 1); // Remove the book from the array
-  renderBooks(); // Re-render the book list
+
+  // Save the updated books to local storage
+  saveBooks();
+
+  // Re-render the book list
+  renderBooks();
 }
 
 // Function to edit a book
@@ -55,6 +74,11 @@ function editBook(index) {
 
   if (newTitle && newAuthor) {
     books[index] = { title: newTitle, author: newAuthor };
+
+    // Save the updated books to local storage
+    saveBooks();
+
+    // Re-render the book list
     renderBooks();
   }
 }
